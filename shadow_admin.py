@@ -1,5 +1,6 @@
 import asyncio
 
+import osteo_bot.config
 from calendar_admin import CalendarAdmin
 from db_admin import DBADMIN
 
@@ -25,7 +26,7 @@ class ShadowAdmin(CalendarAdmin):
 
     def check_nearest_sessions(self):
         async def remind(chatid: int, hour: str):
-            bot = Bot('6273403006:AAGhCvbGqkpFTO_XEihqolz8u82khxmjqLk')
+            bot = Bot(osteo_bot.config.token)
             await bot.send_message(chat_id=chatid, text=f'❗ НАГАДУВАННЯ: у Вас заплановано сеанс на {hour}')
 
         while True:
@@ -35,11 +36,3 @@ class ShadowAdmin(CalendarAdmin):
                     asyncio.run(remind(chatid=db_admin.get_chatid(username=s[0]), hour=hour))
 
             time.sleep(86400)
-
-    # def unlock_hours_controller(self):
-    #     while True:
-    #         pass
-
-
-# shadow_admin = ShadowAdmin()
-# shadow_admin.remove_ended_sessions()

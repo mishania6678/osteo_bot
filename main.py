@@ -39,13 +39,16 @@ async def text_handler(msg: types.Message):
     if msg.from_user.username == 'wargkul':
         if msg.text in ('Записи на сьогодні 📅', 'Записи на наступні декілька днів 📅', 'Усі записи 📅'):
             range_map = {'Записи на сьогодні 📅': 'today', 'Записи на наступні декілька днів 📅': 'week',  'Усі записи 📅': 'all'}
-            for s_d, s_t in calendar_admin.show_sessions_rooted(range_=range_map[msg.text]).items():
-                for t, n in s_t:
-                    delete_kb = InlineKeyboardMarkup(row_width=1).add(
-                        InlineKeyboardButton(text='Скасувати сеанс ❌', callback_data=f'ses del {s_d} {t}'),
-                        InlineKeyboardButton(text='Перенести сеанс ✏️', callback_data=f'ses edit {s_d} {t} {n}')
-                    )
-                    await bot.send_message(chat_id=msg.chat.id, text=f'{s_d}: {t}', reply_markup=delete_kb)
+            if calendar_admin.show_sessions_rooted(range_=range_map[msg.text]) in ('None', {}):
+                await bot.send_message(chat_id=msg.chat.id, text='Сеансів не заплановано 😴')
+            else:
+                for s_d, s_t in calendar_admin.show_sessions_rooted(range_=range_map[msg.text]).items():
+                    for t, n in s_t:
+                        delete_kb = InlineKeyboardMarkup(row_width=1).add(
+                            InlineKeyboardButton(text='Скасувати сеанс ❌', callback_data=f'ses del {s_d} {t}'),
+                            InlineKeyboardButton(text='Перенести сеанс ✏️', callback_data=f'ses edit {s_d} {t} {n}')
+                        )
+                        await bot.send_message(chat_id=msg.chat.id, text=f'{s_d}: {t}', reply_markup=delete_kb)
 
         elif msg.text == 'Взяти вихідний 🥱':
             await bot.send_message(chat_id=msg.chat.id, text='Виберіть день 🔀',
@@ -72,8 +75,6 @@ async def calendar_keyboard_callback_data_handler(call: types.CallbackQuery):
                                reply_markup=osteo_bot_admin.time_schedule_kb(goal='selh', day=int(call.data.split()[1])))
 
     else:
-        # db_admin.add_blocked_hours(day=int(call.data.split()[1]),
-        #                            hours=['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'])
         for h in ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00']:
             calendar_admin.schedule_session(name='blocked', day=int(call.data.split()[1]), hour=h)
         await bot.send_message(chat_id=call.message.chat.id, text='День заблоковано ✅')
@@ -89,12 +90,11 @@ async def time_schedule_keyboard_callback_data_handler(call: types.CallbackQuery
         await bot.send_message(chat_id=call.message.chat.id, text='Час сеансу змінено ✅')
 
     else:
-        # db_admin.add_blocked_hours(day=int(call.data.split()[1]), hours=[call.data.split()[2]])
         calendar_admin.schedule_session(name='blocked', day=int(call.data.split()[1]), hour=call.data.split()[2])
         await bot.send_message(chat_id=call.message.chat.id, text='Час заблоковано ✅')
 
 
-@dp.callback_query_handler(lambda c: c.sessions and c.sessions.startswith('ses'))
+@dp.callback_query_handler(lambda c: c.data and c.data.startswith('ses'))
 async def sessions_keyboard_callback_data_handler(call: types.CallbackQuery):
     global old_day, old_hour, name
 

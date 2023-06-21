@@ -10,7 +10,7 @@ db_admin = DBADMIN()
 
 class CalendarAdmin:
     def __init__(self):
-        path = '/osteobot-45b1ca77ee21.json'
+        path = 'osteobot-45b1ca77ee21.json'
         scopes = ['https://www.googleapis.com/auth/calendar']
         creds = service_account.Credentials.from_service_account_file(path, scopes=scopes)
         self.service = build('calendar', 'v3', credentials=creds)
@@ -118,14 +118,6 @@ class CalendarAdmin:
                 except ValueError:
                     pass
 
-        # blocked_hours = db_admin.get_blocked_hours()
-        # for d, hs in schedule.items():
-        #     for h in sorted(hs):
-        #         if d in blocked_hours.keys() and h in blocked_hours[d]:
-        #             schedule[d].remove(h)
-
-        print(schedule)
-
         return schedule
 
     @staticmethod
@@ -147,8 +139,3 @@ class CalendarAdmin:
         values = [['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'] for _ in range(30)]
 
         return dict(zip(keys, values))
-
-
-# db_admin.unlock_hours(20, ['11:00', '13:00', '16:00', '18:00', '20:00'])
-# calendar_admin = CalendarAdmin()
-# print(calendar_admin.available_time())

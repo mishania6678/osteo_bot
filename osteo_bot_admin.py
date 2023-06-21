@@ -27,10 +27,10 @@ class OsteoBotAdmin:
         days = []
         for d in schedule.keys():
             if schedule[d]:
-                days.append(day)
+                days.append(d)
 
         kb = InlineKeyboardMarkup(row_width=5)
-        kb.add(*[InlineKeyboardButton(text=str(d), callback_data=f'day {goal} {d}') for d in days])
+        kb.add(*[InlineKeyboardButton(text=str(d), callback_data=f'{goal} {d}') for d in days])
 
         return kb
 
