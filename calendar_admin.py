@@ -12,9 +12,9 @@ db_admin = DBADMIN()
 
 class CalendarAdmin:
     def __init__(self):
-        # path = 'osteobot-45b1ca77ee21.json'
         scopes = ['https://www.googleapis.com/auth/calendar']
         json_data = os.environ.get('CREDS')
+        print(json_data)
         converted_data = json.loads(json_data)
         creds = service_account.Credentials.from_service_account_info(converted_data, scopes=scopes)
         self.service = build('calendar', 'v3', credentials=creds)
