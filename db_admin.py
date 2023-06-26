@@ -1,6 +1,6 @@
 import pymysql
 
-import osteo_bot.config
+from config import db_db, db_user, db_pass
 
 
 class DBADMIN:
@@ -30,9 +30,9 @@ class DBADMIN:
     def __connect_database(self):
         self.db = pymysql.connect(
             host='eu-cdbr-west-03.cleardb.net',
-            user=osteo_bot.config.db_user,
-            password=osteo_bot.config.db_pass,
-            database=osteo_bot.config.db_db
+            user=db_user,
+            password=db_pass,
+            database=db_db
         )
 
     def __close_database(self):
