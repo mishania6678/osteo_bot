@@ -1,7 +1,7 @@
 import pymysql
 
 import os
-
+a
 
 class DBADMIN:
     def __init__(self):
