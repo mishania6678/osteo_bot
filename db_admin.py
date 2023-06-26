@@ -1,6 +1,6 @@
 import pymysql
 
-from config import db_db, db_user, db_pass
+import os
 
 
 class DBADMIN:
@@ -30,9 +30,9 @@ class DBADMIN:
     def __connect_database(self):
         self.db = pymysql.connect(
             host='eu-cdbr-west-03.cleardb.net',
-            user=db_user,
-            password=db_pass,
-            database=db_db
+            user=os.environ.get('DB_USER'),
+            password=os.environ.get('DB_PASS'),
+            database=os.environ.get('DB_DB')
         )
 
     def __close_database(self):

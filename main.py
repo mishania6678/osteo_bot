@@ -1,8 +1,7 @@
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-print(config.token)
 
-from config import token
+import os
 from osteo_bot_admin import OsteoBotAdmin
 from calendar_admin import CalendarAdmin
 from shadow_admin import ShadowAdmin
@@ -10,7 +9,7 @@ from db_admin import DBADMIN
 
 import threading
 
-bot = Bot(token)
+bot = Bot(os.environ.get('BOT_TOKEN'))
 dp = Dispatcher(bot)
 
 osteo_bot_admin = OsteoBotAdmin()

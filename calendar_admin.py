@@ -1,6 +1,8 @@
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 
+import os
+import json
 from db_admin import DBADMIN
 
 from datetime import date
@@ -10,9 +12,11 @@ db_admin = DBADMIN()
 
 class CalendarAdmin:
     def __init__(self):
-        path = 'osteobot-45b1ca77ee21.json'
+        # path = 'osteobot-45b1ca77ee21.json'
         scopes = ['https://www.googleapis.com/auth/calendar']
-        creds = service_account.Credentials.from_service_account_file(path, scopes=scopes)
+        json_data = os.environ.get('CREDS')
+        converted_data = json.loads(json_data)
+        creds = service_account.Credentials.from_service_account_info(converted_data, scopes=scopes)
         self.service = build('calendar', 'v3', credentials=creds)
 
     def get_data(self):
@@ -139,3 +143,6 @@ class CalendarAdmin:
         values = [['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'] for _ in range(30)]
 
         return dict(zip(keys, values))
+
+
+c = CalendarAdmin()
