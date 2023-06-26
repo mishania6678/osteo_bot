@@ -1,5 +1,6 @@
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+print(config.token)
 
 from config import token
 from osteo_bot_admin import OsteoBotAdmin
