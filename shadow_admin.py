@@ -21,7 +21,6 @@ class ShadowAdmin(CalendarAdmin):
                 if year < date.today().year or (year >= date.today().year and month < date.today().month) or \
                         (year >= date.today().year and month >= date.today().month and day < date.today().day):
                     self.cancel_session(day=day, hour=hour)
-a
             time.sleep(21600)
 
     def check_nearest_sessions(self):

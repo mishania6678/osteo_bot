@@ -1,6 +1,6 @@
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-a
+
 import os
 from osteo_bot_admin import OsteoBotAdmin
 from calendar_admin import CalendarAdmin

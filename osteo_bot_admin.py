@@ -3,7 +3,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from calendar_admin import CalendarAdmin
 
-a
+
 class OsteoBotAdmin:
     def __init__(self):
         pass
