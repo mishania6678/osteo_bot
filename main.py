@@ -27,7 +27,6 @@ async def start_handler(msg: types.Message):
     if msg.from_user.username == 'wargkul':
         threading.Thread(target=shadow_admin.remove_ended_sessions).start()
         threading.Thread(target=shadow_admin.check_nearest_sessions).start()
-        # threading.Thread(target=shadow_admin.unlock_hours_controller).start()
 
         await bot.send_message(chat_id=msg.chat.id, text='Ласкаво прошу, Валентине! 😉', reply_markup=osteo_bot_admin.main_kb())
 
