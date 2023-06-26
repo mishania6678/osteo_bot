@@ -1,6 +1,7 @@
 from aiogram import Bot, Dispatcher, types, executor
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+import osteo_bot.config
 from osteo_bot_admin import OsteoBotAdmin
 from calendar_admin import CalendarAdmin
 from shadow_admin import ShadowAdmin
@@ -8,7 +9,7 @@ from db_admin import DBADMIN
 
 import threading
 
-bot = Bot('6273403006:AAGhCvbGqkpFTO_XEihqolz8u82khxmjqLk')
+bot = Bot(osteo_bot.config.token)
 dp = Dispatcher(bot)
 
 osteo_bot_admin = OsteoBotAdmin()
