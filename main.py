@@ -24,7 +24,7 @@ old_day, old_hour, name = 0, '', ''
 
 @dp.message_handler(commands=['start'])
 async def start_handler(msg: types.Message):
-    if msg.from_user.username == 'wargkul':
+    if msg.from_user.username in ('wargkul', 'OsteopatValentyn'):
         threading.Thread(target=shadow_admin.remove_ended_sessions).start()
         threading.Thread(target=shadow_admin.check_nearest_sessions).start()
 
