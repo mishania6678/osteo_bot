@@ -14,7 +14,8 @@ class CalendarAdmin:
     def __init__(self):
         scopes = ['https://www.googleapis.com/auth/calendar']
         json_data = os.environ.get('CREDS')
-        converted_data = json.loads(json_data)
+        with open("file.json", "r") as read_file:
+            converted_data = json.loads(json_data)
         creds = service_account.Credentials.from_service_account_info(converted_data, scopes=scopes)
         self.service = build('calendar', 'v3', credentials=creds)
 
